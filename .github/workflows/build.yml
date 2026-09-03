@@ -18,16 +18,16 @@ jobs:
         with:
           python-version: '3.10'
 
-      - name: Instalar dependências do sistema e Buildozer
+      - name: Instalar dependências e Buildozer
         run: |
-          sudo apt-get update
-          sudo apt-get install -y build-essential libsqlite3-dev sqlite3 bzip2 libbz2-dev zlib1g-dev libssl-dev openssl libgdbm-dev libgdbm-compat-dev liblzma-dev libreadline-dev libffi-dev libgl1-mesa-dev libgles2-mesa-dev ccache ffmpeg libsdl2-dev libsdl2-image-dev libsdl2-mixin-dev libsdl2-ttf-dev libportmidi-dev libswscale-dev libavformat-dev libavcodec-dev openjdk-17-jdk zip unzip
+          sudo apt update
+          sudo apt install -y git zip unzip openjdk-17-jdk python3-pip autoconf libtool pkg-config zlib1g-dev libncurses5-dev libncursesw5-dev libtinfo5 cmake libffi-dev libssl-dev
           pip install --upgrade pip
           pip install "cython<3.0.0" virtualenv buildozer
 
-      - name: Gerar APK com Buildozer
+      - name: Compilar APK
         run: |
-          buildozer -v android debug
+          yes | buildozer -v android debug
 
       - name: Disponibilizar APK para Download
         uses: actions/upload-artifact@v4
