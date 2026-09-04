@@ -22,16 +22,22 @@ jobs:
         run: |
           sudo apt-get update
           sudo apt-get install -y ccache git libffi-dev libssl-dev build-essential \
-            python3-dev libltdl-dev libffi-dev libssl-dev zip unzip openjdk-17-jdk
+            python3-dev libltdl-dev zip unzip openjdk-17-jdk
           pip install --upgrade pip setuptools buildozer cython
 
-      - name: Compilar APK com Buildozer
+      - name: Aceitar licenças do Android SDK
+        run: |
+          mkdir -p ~/.android
+          touch ~/.android/repositories.cfg
+          yes | sdkmanager --licenses || true
+
+      - name: Compilar APK
         uses: nick-fields/retry@v3
         with:
-          timeout_minutes: 30
+          timeout_minutes: 45
           max_attempts: 3
           retry_on: error
-          command: buildozer android debug
+          command: yes | buildozer android debug
 
       - name: Disponibilizar APK para Download
         uses: actions/upload-artifact@v4
