@@ -19,7 +19,7 @@ source.include_exts = py,png,jpg,kv,atlas,json
 version = 1.0
 
 # (list) Application requirements
-requirements = python3,kivy==2.3.0,kivymd==1.1.1,Pillow
+requirements = python3,kivy==2.3.0,kivymd==1.2.0,Pillow,cython<3.0.0
 
 # (str) Supported orientation (one of landscape, sensorLandscape, portrait or all)
 orientation = portrait
